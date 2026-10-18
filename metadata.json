@@ -1,0 +1,6 @@
+{
+  "name": "JEE 2027 Organic Chemistry — Handwritten Reagent Master Notebook",
+  "description": "Comprehensive handwritten revision notebook for JEE Main & Advanced organic chemistry with bond-line skeletal diagrams, Hinglish logic, mixed-reagent combos, and self-quiz modes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

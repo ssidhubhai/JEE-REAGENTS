@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+:root {
+  --paper-bg: #fdfbf5;
+  --line-color: rgba(59, 130, 246, 0.16);
+  --margin-line: rgba(239, 68, 68, 0.35);
+  --ink-dark: #1e293b;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f1efe7;
+  color: var(--ink-dark);
+  margin: 0;
+  padding: 0;
+}
+
+body.handwritten-mode .hinglish-note,
+body.handwritten-mode .hand-title,
+body.handwritten-mode .trap-note {
+  font-family: 'Kalam', cursive;
+  letter-spacing: 0.01em;
+}
+
+body.clean-mode .hinglish-note,
+body.clean-mode .hand-title,
+body.clean-mode .trap-note {
+  font-family: 'Inter', sans-serif;
+}
+
+.notebook-card {
+  background-color: var(--paper-bg);
+  background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
+  background-size: 100% 28px;
+  border: 1.5px solid #d6d0c4;
+  box-shadow: 3px 4px 0px rgba(30, 41, 59, 0.12);
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+body.white-paper .notebook-card {
+  background-color: #ffffff;
+  background-image: none;
+  border: 1.5px solid #cbd5e1;
+}
+
+.notebook-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 14px;
+  width: 2px;
+  background-color: var(--margin-line);
+  pointer-events: none;
+}
+
+body.white-paper .notebook-card::before {
+  display: none;
+}
+
+.sketch-box {
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1.5px dashed #94a3b8;
+  border-radius: 8px;
+}
+
+/* Self-Quiz Blur / Mask */
+.quiz-hide-product .svg-product-group,
+.quiz-hide-product .product-text-reveal {
+  filter: blur(11px);
+  opacity: 0.18;
+  user-select: none;
+  transition: all 0.22s ease;
+  cursor: pointer;
+}
+.quiz-hide-product .notebook-card.revealed .svg-product-group,
+.quiz-hide-product .notebook-card.revealed .product-text-reveal {
+  filter: none;
+  opacity: 1;
+}
+
+.quiz-hide-reagent .svg-reagent-group,
+.quiz-hide-reagent .reagent-title-reveal {
+  filter: blur(10px);
+  opacity: 0.18;
+  user-select: none;
+  transition: all 0.22s ease;
+  cursor: pointer;
+}
+.quiz-hide-reagent .notebook-card.revealed .svg-reagent-group,
+.quiz-hide-reagent .notebook-card.revealed .reagent-title-reveal {
+  filter: none;
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #e5e0d5;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  .notebook-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+    background-image: none !important;
+    background-color: #fff !important;
+    margin-bottom: 12px !important;
+  }
+  .notebook-card::before {
+    display: none !important;
+  }
+}
