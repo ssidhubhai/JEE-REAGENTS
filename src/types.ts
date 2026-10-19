@@ -1,3 +1,7 @@
+export type SubjectType = 'LIBRARY' | 'PHYSICS' | 'CHEMISTRY';
+
+export type ChapterId = 'ALL' | 'KINEMATICS' | 'ORGANIC_REAGENTS';
+
 export type TabType = 'ALL' | 'P1' | 'P2' | 'P3' | 'P4' | 'P5' | 'P6' | 'COMBO' | 'MATRIX';
 
 export type IntermedFilter = 'ALL' | 'Carbocation' | 'No Rearrangement' | 'Free Radical' | 'Carbanion' | 'Carbene' | 'SN2' | 'POC';
@@ -24,4 +28,41 @@ export interface ReagentCard {
   ignores: string;
   trap: string;
   exampleText: string;
+}
+
+// Physics Kinematics Types
+export interface KinematicsQuestionItem {
+  id: string;
+  source: string;
+  topic: string;
+  question: string;
+  options: string[];
+  correct: number;
+  aamZindagi: string;
+  bhaiyaTrick: string;
+  chapter?: '1D' | '2D';
+  moduleTitle?: string;
+  cardId?: string;
+  cardTitle?: string;
+}
+
+export interface KinematicsCardItem {
+  id: string;
+  title: string;
+  formulaHtml: string;
+  svgDiagram?: string;
+  trigger: string;
+  hinglishNote: string;
+  trap: string;
+  questions: KinematicsQuestionItem[];
+}
+
+export interface KinematicsModuleItem {
+  id: string;
+  chapter: '1D' | '2D';
+  badge: string;
+  title: string;
+  subtitle: string;
+  color: string;
+  cards: KinematicsCardItem[];
 }

@@ -3,17 +3,17 @@ import React from 'react';
 export const SelectivityMatrix: React.FC = () => {
   return (
     <section id="matrixSection" className="mb-6">
-      <div className="notebook-card rounded-xl p-4 sm:p-6">
-        <div className="pl-3">
-          <h2 className="hand-title text-xl sm:text-2xl font-bold text-slate-900 mb-1">
+      <div className="notebook-card rounded-xl p-3 sm:p-6">
+        <div className="pl-4 sm:pl-5">
+          <h2 className="hand-title text-lg sm:text-2xl font-bold text-slate-900 mb-1 break-words">
             ⚡ Master Reducing & Oxidizing Selectivity Chart ("Kaun Kisko Chhedta Hai vs Chhodta Hai")
           </h2>
-          <p className="hinglish-note text-sm text-slate-700 mb-4">
+          <p className="hinglish-note text-xs sm:text-sm text-slate-700 mb-3 leading-relaxed break-words">
             JEE Main aur Advanced ke multi-functional group sawaalon mein 80% bache yahi fasste hain: kaunsa reagent Ester ko chhod ke Ketone ko reduce karega, ya Double bond ko chhod ke Aldehyde ko! Ek nazar mein poora chart dekho:
           </p>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs sm:text-sm bg-white/90 rounded-lg overflow-hidden border border-slate-300">
+          <div className="overflow-x-auto scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <table className="w-full min-w-[560px] text-left border-collapse text-xs sm:text-sm bg-white/95 rounded-lg overflow-hidden border border-slate-300">
               <thead>
                 <tr className="bg-slate-900 text-white">
                   <th className="p-2.5 border border-slate-700">Substrate / Group</th>

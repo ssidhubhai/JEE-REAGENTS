@@ -12,11 +12,9 @@ import {
   PenTool,
   FileText,
   Printer,
-  SlidersHorizontal,
   Pin,
   PinOff,
   RotateCcw,
-  BookOpen,
 } from 'lucide-react';
 
 interface CollapsibleHeaderProps {
@@ -88,30 +86,30 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
       } bg-slate-900 text-white border-b border-slate-700 shadow-xl transition-all duration-200`}
     >
       {/* ========================================================================= */}
-      {/* 1. COLLAPSED ULTRA-COMPACT SLIM BAR (Only ~42px height, saves screen space!) */}
+      {/* 1. COLLAPSED ULTRA-COMPACT SLIM BAR (Mobile & Desktop Space Saver)         */}
       {/* ========================================================================= */}
       {isHeaderCollapsed ? (
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 flex items-center justify-between gap-2 text-xs">
+        <div className="w-full max-w-[97vw] mx-auto px-2.5 sm:px-4 py-2 flex items-center justify-between gap-1.5 sm:gap-2 text-xs">
           {/* Left: Brand Badge + Title + Active Module Chip */}
-          <div className="flex items-center gap-2 overflow-hidden">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-hidden min-w-0">
             <div className="w-7 h-7 rounded-md bg-amber-400 text-slate-950 font-black flex items-center justify-center text-xs shadow-xs shrink-0">
               OC
             </div>
-            <div className="flex items-center gap-2 truncate">
+            <div className="flex items-center gap-1.5 sm:gap-2 truncate">
               <span className="font-bold text-white text-xs sm:text-sm truncate">
-                JEE 2027 Organic Master
+                JEE 2027 Organic
               </span>
-              <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-slate-800 text-amber-300 border border-slate-700 text-[11px] font-semibold shrink-0">
+              <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full bg-slate-800 text-amber-300 border border-slate-700 text-[11px] font-semibold shrink-0 truncate max-w-[140px]">
                 {activeTabObj?.label || 'All'}
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[11px] font-bold shrink-0">
-                {visibleCount} Cards
+              <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[10px] sm:text-[11px] font-bold shrink-0">
+                {visibleCount}
               </span>
             </div>
           </div>
 
           {/* Center / Right: Quick search + status indicators + Expand toggle */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             {/* Quick search input (collapsed bar) */}
             <div className="relative flex items-center">
               {showQuickSearchInCollapsed ? (
@@ -120,9 +118,9 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Quick search..."
+                    placeholder="Search..."
                     autoFocus
-                    className="w-32 sm:w-48 px-2.5 py-1 text-xs bg-slate-800 border border-amber-400 rounded-md text-white placeholder-slate-400 focus:outline-none"
+                    className="w-28 sm:w-48 px-2 py-1 text-xs bg-slate-800 border border-amber-400 rounded-md text-white placeholder-slate-400 focus:outline-none"
                   />
                   <button
                     onClick={() => {
@@ -148,7 +146,7 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                 >
                   <Search className="w-3.5 h-3.5" />
                   {searchQuery && (
-                    <span className="max-w-[70px] truncate hidden sm:inline text-[11px]">
+                    <span className="max-w-[60px] truncate hidden sm:inline text-[11px]">
                       {searchQuery}
                     </span>
                   )}
@@ -156,7 +154,7 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
               )}
             </div>
 
-            {/* Quiz indicators (click to toggle directly from slim bar) */}
+            {/* Quiz product indicator */}
             <button
               type="button"
               onClick={() => setHideProductQuiz((prev) => !prev)}
@@ -170,6 +168,7 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
               {hideProductQuiz ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             </button>
 
+            {/* Quiz reagent indicator */}
             <button
               type="button"
               onClick={() => setHideReagentQuiz((prev) => !prev)}
@@ -183,7 +182,7 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
               <FlaskConical className="w-3.5 h-3.5" />
             </button>
 
-            {/* Sticky Pin Toggle */}
+            {/* Sticky Pin Toggle (Desktop) */}
             <button
               type="button"
               onClick={() => setIsSticky((prev) => !prev)}
@@ -192,18 +191,18 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                   ? 'bg-slate-800 text-amber-300 border-amber-400/40'
                   : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
               }`}
-              title={isSticky ? 'Header is pinned (sticky). Click to unpin' : 'Header unpinned. Click to make sticky'}
+              title={isSticky ? 'Header is Sticky. Click to unpin' : 'Header is Unpinned. Click to pin'}
             >
               {isSticky ? <Pin className="w-3.5 h-3.5 fill-amber-300" /> : <PinOff className="w-3.5 h-3.5" />}
             </button>
 
-            {/* Reset filters if any are active */}
+            {/* Reset filters */}
             {hasActiveFilters && (
               <button
                 type="button"
                 onClick={onResetFilters}
                 className="p-1.5 rounded-md text-xs font-semibold bg-slate-800 text-rose-300 hover:text-rose-200 border border-rose-500/30 hover:bg-rose-950/40 transition"
-                title="Reset all search & filters"
+                title="Reset all filters"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
               </button>
@@ -213,105 +212,113 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
             <button
               type="button"
               onClick={() => setIsHeaderCollapsed(false)}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md flex items-center gap-1.5 transition transform active:scale-95"
+              className="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md flex items-center gap-1 transition transform active:scale-95"
               title="Expand full search, filters, and module tabs"
             >
               <span>Controls</span>
-              <ChevronDown className="w-4 h-4 stroke-[2.5]" />
+              <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
             </button>
           </div>
         </div>
       ) : (
         /* ========================================================================= */
-        /* 2. FULL EXPANDED HEADER (With clear "Collapse Header" button)              */
+        /* 2. FULL EXPANDED HEADER (Mobile & Desktop Optimized)                      */
         /* ========================================================================= */
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5">
-          {/* ROW 1: BRAND + TITLE + ACTION BUTTONS + COLLAPSE BUTTON */}
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-lg bg-amber-400 text-slate-950 font-black flex items-center justify-center text-lg shadow shrink-0">
-                OC
+        <div className="w-full max-w-[97vw] mx-auto px-2.5 sm:px-4 py-2.5">
+          {/* ROW 1: BRAND + TITLE + ACTION TOOLBAR */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 pb-2 border-b border-slate-800">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-amber-400 text-slate-950 font-black flex items-center justify-center text-sm shadow shrink-0">
+                  OC
+                </div>
+                <div>
+                  <h1 className="text-sm sm:text-base font-bold tracking-tight flex items-center gap-1.5">
+                    <span>JEE 2027 Organic Chemistry</span>
+                    <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-semibold">
+                      {visibleCount} of {totalCount}
+                    </span>
+                  </h1>
+                </div>
               </div>
-              <div>
-                <h1 className="text-base sm:text-lg font-bold tracking-tight flex items-center gap-2">
-                  <span>JEE 2027 Organic Chemistry — Handwritten Master Notebook</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-semibold">
-                    {visibleCount} of {totalCount} Cards
-                  </span>
-                </h1>
-                <p className="text-xs text-slate-300 hidden md:block">
-                  100% NCERT + JEE Main + Advanced • Drawn Skeletal Diagrams • Spoken Classroom Hinglish Logic
-                </p>
-              </div>
+
+              {/* Mobile Collapse Button right next to title */}
+              <button
+                type="button"
+                onClick={() => setIsHeaderCollapsed(true)}
+                className="md:hidden px-2.5 py-1 rounded-md text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow flex items-center gap-1 transition"
+                title="Collapse header"
+              >
+                <span>Collapse</span>
+                <ChevronUp className="w-3.5 h-3.5 stroke-[2.5]" />
+              </button>
             </div>
 
-            {/* TOOLBAR CONTROLS & COLLAPSE BUTTON */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            {/* ACTION TOOLBAR (Scrollable on small mobile screens to prevent messy stacking) */}
+            <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
               <button
                 type="button"
                 onClick={() => setHideProductQuiz((prev) => !prev)}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                className={`px-2 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition shrink-0 ${
                   hideProductQuiz
-                    ? 'bg-rose-600 hover:bg-rose-500 text-white border border-rose-400'
+                    ? 'bg-rose-600 hover:bg-rose-500 text-white border border-rose-400 shadow-2xs'
                     : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600'
                 }`}
                 title="Hide products to test your recall"
               >
                 {hideProductQuiz ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                <span>{hideProductQuiz ? 'Show Products' : 'Hide Products (Quiz)'}</span>
+                <span>{hideProductQuiz ? 'Show Products' : 'Quiz Products'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setHideReagentQuiz((prev) => !prev)}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                className={`px-2 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition shrink-0 ${
                   hideReagentQuiz
-                    ? 'bg-rose-600 hover:bg-rose-500 text-white border border-rose-400'
+                    ? 'bg-rose-600 hover:bg-rose-500 text-white border border-rose-400 shadow-2xs'
                     : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600'
                 }`}
                 title="Hide reagents to test your memory"
               >
                 <FlaskConical className="w-3.5 h-3.5" />
-                <span>{hideReagentQuiz ? 'Show Reagents' : 'Hide Reagents'}</span>
+                <span>{hideReagentQuiz ? 'Show Reagents' : 'Quiz Reagents'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setHandwrittenFont((prev) => !prev)}
-                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-400/40 transition flex items-center gap-1"
+                className="px-2 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-400/40 transition flex items-center gap-1 shrink-0"
                 title="Toggle between Kalam handwritten font and clean Inter font"
               >
                 <PenTool className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Font:</span>
                 <span>{handwrittenFont ? 'Handwritten' : 'Clean'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setLinedPaper((prev) => !prev)}
-                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-600 transition flex items-center gap-1"
+                className="px-2 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-600 transition flex items-center gap-1 shrink-0"
                 title="Toggle lined notebook copy paper vs pure white background"
               >
                 <FileText className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Paper:</span>
                 <span>{linedPaper ? 'Lined' : 'White'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow transition flex items-center gap-1"
-                title="Print or export as clean PDF without UI clutter"
+                className="px-2 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow transition flex items-center gap-1 shrink-0"
+                title="Print or export as clean PDF"
               >
                 <Printer className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Print / PDF</span>
+                <span className="hidden sm:inline">PDF</span>
               </button>
 
               {/* Sticky Pin/Unpin */}
               <button
                 type="button"
                 onClick={() => setIsSticky((prev) => !prev)}
-                className={`p-1.5 rounded-lg text-xs font-semibold border transition flex items-center gap-1 ${
+                className={`p-1.5 rounded-lg text-xs font-semibold border transition hidden sm:flex items-center gap-1 shrink-0 ${
                   isSticky
                     ? 'bg-slate-800 text-amber-300 border-amber-400/40'
                     : 'bg-slate-800 text-slate-400 border-slate-600 hover:text-white'
@@ -321,11 +328,11 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                 {isSticky ? <Pin className="w-3.5 h-3.5 fill-amber-300" /> : <PinOff className="w-3.5 h-3.5" />}
               </button>
 
-              {/* COLLAPSE HEADER TOGGLE BUTTON (Prominent & highlighted) */}
+              {/* Desktop Collapse Button */}
               <button
                 type="button"
                 onClick={() => setIsHeaderCollapsed(true)}
-                className="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md flex items-center gap-1.5 transition transform active:scale-95 ml-1"
+                className="hidden md:flex px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md items-center gap-1 transition transform active:scale-95 shrink-0"
                 title="Collapse header to free up vertical space for reading cards"
               >
                 <span>Collapse</span>
@@ -334,14 +341,15 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
             </div>
           </div>
 
-          {/* ROW 2: SEARCH + FILTERS */}
-          <div className="mt-2.5 flex flex-wrap items-center gap-2">
-            <div className="relative flex-1 min-w-[210px]">
+          {/* ROW 2: SEARCH + FILTERS (Clean Mobile Grid) */}
+          <div className="mt-2.5 flex flex-col md:flex-row items-stretch md:items-center gap-2">
+            {/* Search Input */}
+            <div className="relative flex-1 min-w-0">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search any reagent, reaction, intermediate, test (e.g. DIBAL, Ozonolysis, Carbocation, Lucas, BDC, Aldol, Glucose, Kjeldahl)..."
+                placeholder="Search reagent, mechanism, test (e.g. DIBAL, Ozonolysis, Carbocation, Aldol, Glucose)..."
                 className="w-full pl-8 pr-8 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition"
               />
               <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400" />
@@ -357,52 +365,55 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
               )}
             </div>
 
-            <select
-              value={filterIntermed}
-              onChange={(e) => setFilterIntermed(e.target.value as IntermedFilter)}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-slate-200 focus:outline-none focus:border-amber-400"
-            >
-              <option value="ALL">All Intermediates / Mechanisms</option>
-              <option value="Carbocation">⚡ Carbocation (Rearrangement!)</option>
-              <option value="No Rearrangement">🛡️ Cyclic Ion / Syn (No Rearrangement)</option>
-              <option value="Free Radical">🔥 Free Radical</option>
-              <option value="Carbanion">➖ Carbanion / Enolate</option>
-              <option value="Carbene">🧬 Carbene / Nitrene / Benzyne</option>
-              <option value="SN2">🎯 Pure SN2 / Inversion</option>
-              <option value="POC">🧪 POC Colour / Distinction Test</option>
-            </select>
-
-            <select
-              value={filterStar}
-              onChange={(e) => setFilterStar(e.target.value as StarFilter)}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-slate-200 focus:outline-none focus:border-amber-400"
-            >
-              <option value="ALL">All Frequencies</option>
-              <option value="3">★★★ Ultra-High Frequency (Asked 6+x)</option>
-              <option value="2">★★ Standard JEE Main/Adv</option>
-              <option value="BOOKMARK">⭐ My Starred Revision List ({starredCount})</option>
-              <option value="MASTERED">✅ Marked "Yaad Ho Gaya"</option>
-              <option value="PENDING">⏳ Still Revising</option>
-            </select>
-
-            {hasActiveFilters && (
-              <button
-                type="button"
-                onClick={onResetFilters}
-                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-rose-300 hover:text-white hover:bg-rose-900/60 border border-rose-500/40 flex items-center gap-1 transition"
-                title="Reset all filters"
+            {/* Dropdown Filters (Side by side on mobile) */}
+            <div className="grid grid-cols-2 sm:flex sm:items-center gap-1.5 shrink-0">
+              <select
+                value={filterIntermed}
+                onChange={(e) => setFilterIntermed(e.target.value as IntermedFilter)}
+                className="w-full sm:w-auto px-2 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-slate-200 focus:outline-none focus:border-amber-400 truncate"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset</span>
-              </button>
-            )}
+                <option value="ALL">All Mechanisms</option>
+                <option value="Carbocation">⚡ Carbocation</option>
+                <option value="No Rearrangement">🛡️ No Rearrangement</option>
+                <option value="Free Radical">🔥 Free Radical</option>
+                <option value="Carbanion">➖ Carbanion</option>
+                <option value="Carbene">🧬 Carbene / Nitrene</option>
+                <option value="SN2">🎯 Pure SN2</option>
+                <option value="POC">🧪 POC Test</option>
+              </select>
+
+              <select
+                value={filterStar}
+                onChange={(e) => setFilterStar(e.target.value as StarFilter)}
+                className="w-full sm:w-auto px-2 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-slate-200 focus:outline-none focus:border-amber-400 truncate"
+              >
+                <option value="ALL">All Frequencies</option>
+                <option value="3">★★★ Ultra-High</option>
+                <option value="2">★★ Standard</option>
+                <option value="BOOKMARK">⭐ Starred ({starredCount})</option>
+                <option value="MASTERED">✅ Yaad Ho Gaya</option>
+                <option value="PENDING">⏳ Revising</option>
+              </select>
+
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={onResetFilters}
+                  className="col-span-2 sm:col-span-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-rose-300 hover:text-white hover:bg-rose-900/60 border border-rose-500/40 flex items-center justify-center gap-1 transition"
+                  title="Reset all filters"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Reset</span>
+                </button>
+              )}
+            </div>
           </div>
 
-          {/* ROW 3: MODULE TABS */}
-          <div className="mt-2.5 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+          {/* ROW 3: MODULE TABS (Horizontal Touch Scroll with Scrollbar hidden) */}
+          <div className="mt-2.5 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
             {MODULE_TABS.map((tab) => {
               const isActive = activeTab === tab.id;
-              let btnClass = 'px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition ';
+              let btnClass = 'px-2.5 py-1.5 rounded-lg text-xs whitespace-nowrap transition shrink-0 ';
 
               if (isActive) {
                 btnClass += 'font-bold bg-amber-400 text-slate-950 shadow-md ';

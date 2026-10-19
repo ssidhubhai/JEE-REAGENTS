@@ -2,46 +2,65 @@
 
 :root {
   --paper-bg: #fdfbf5;
-  --line-color: rgba(59, 130, 246, 0.16);
+  --line-color: rgba(59, 130, 246, 0.12);
   --margin-line: rgba(239, 68, 68, 0.35);
-  --ink-dark: #1e293b;
+  --ink-dark: #0f172a;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f1efe7;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  background-color: #f3f0e6;
   color: var(--ink-dark);
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body.handwritten-mode .hinglish-note,
-body.handwritten-mode .hand-title,
-body.handwritten-mode .trap-note {
+/* Handwritten vs Clean Mode: Increased line-height and spacing prevents any font overlapping */
+body.handwritten-mode .hinglish-note {
+  font-family: 'Kalam', cursive;
+  letter-spacing: 0.015em;
+  line-height: 1.68;
+}
+
+body.handwritten-mode .hand-title {
   font-family: 'Kalam', cursive;
   letter-spacing: 0.01em;
+  line-height: 1.45;
+}
+
+body.handwritten-mode .trap-note {
+  font-family: 'Kalam', cursive;
+  letter-spacing: 0.015em;
+  line-height: 1.65;
 }
 
 body.clean-mode .hinglish-note,
 body.clean-mode .hand-title,
 body.clean-mode .trap-note {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  line-height: 1.55;
 }
 
+/* Notebook Card Styling */
 .notebook-card {
   background-color: var(--paper-bg);
   background-image: linear-gradient(var(--line-color) 1px, transparent 1px);
-  background-size: 100% 28px;
-  border: 1.5px solid #d6d0c4;
-  box-shadow: 3px 4px 0px rgba(30, 41, 59, 0.12);
+  background-size: 100% 32px;
+  border: 1.5px solid #dcd7cc;
+  box-shadow: 2px 3px 0px rgba(30, 41, 59, 0.08);
   position: relative;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 body.white-paper .notebook-card {
   background-color: #ffffff;
   background-image: none;
   border: 1.5px solid #cbd5e1;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
 }
 
 .notebook-card::before {
@@ -49,18 +68,46 @@ body.white-paper .notebook-card {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 14px;
+  left: 10px;
   width: 2px;
   background-color: var(--margin-line);
   pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .notebook-card::before {
+    left: 14px;
+  }
 }
 
 body.white-paper .notebook-card::before {
   display: none;
 }
 
+/* Flashcard 3D perspective */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .sketch-box {
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.95);
   border: 1.5px dashed #94a3b8;
   border-radius: 8px;
 }
@@ -68,8 +115,8 @@ body.white-paper .notebook-card::before {
 /* Self-Quiz Blur / Mask */
 .quiz-hide-product .svg-product-group,
 .quiz-hide-product .product-text-reveal {
-  filter: blur(11px);
-  opacity: 0.18;
+  filter: blur(10px);
+  opacity: 0.15;
   user-select: none;
   transition: all 0.22s ease;
   cursor: pointer;
@@ -83,7 +130,7 @@ body.white-paper .notebook-card::before {
 .quiz-hide-reagent .svg-reagent-group,
 .quiz-hide-reagent .reagent-title-reveal {
   filter: blur(10px);
-  opacity: 0.18;
+  opacity: 0.15;
   user-select: none;
   transition: all 0.22s ease;
   cursor: pointer;
@@ -94,16 +141,28 @@ body.white-paper .notebook-card::before {
   opacity: 1;
 }
 
+/* KaTeX custom tweaks for responsive inline display */
+.katex-display {
+  margin: 0.5em 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
+}
+.katex {
+  font-size: 1.05em;
+  text-rendering: auto;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #e5e0d5;
+  background: #ede8dc;
 }
 ::-webkit-scrollbar-thumb {
   background: #94a3b8;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 @media print {
